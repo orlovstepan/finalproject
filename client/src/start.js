@@ -1,7 +1,13 @@
 import ReactDOM from "react-dom";
+import axios from "axios";
+import Welcome from "./welcome";
+import App from "./app";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
-
-function HelloWorld() {
-    return <div>Hello, World!</div>;
-}
+axios.get("/user/id.json").then(function ({ data }) {
+    // console.log(data);
+    if (!data.userId) {
+        ReactDOM.render(<Welcome />, document.querySelector("main"));
+    } else {
+        ReactDOM.render(<App />, document.querySelector("main"));
+    }
+});

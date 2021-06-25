@@ -64,15 +64,30 @@ app.post("/login", (req, res) => {
             userId = rows[0].id;
             console.log("password", password);
             console.log("rows password", rows[0].password);
-            compare(password, rows[0].password).then((auth) => {
-                req.session.userId = userId;
-                return res.json({
-                    success: true,
-                });
-            });
+            compare(password, rows[0].password)
+                .then((auth) => {
+                    if (auth) {
+                        req.session.userId = userId;
+                        return res.json({
+                            success: true,
+                        });
+                    }
+                })
+                .catch((e) => console.log("passwords don't match", e));
         });
     }
 });
+
+app.get("/api/flat-preview", (req, res) => {
+    db.getFlatPreview()
+        .then(({ rows }) => {
+            console.log("rows in getFlatPreview", rows);
+            return res.json(rows);
+        })
+        .catch((e) => console.log("error on the server in getting flats", e));
+});
+
+app.get("/flats");
 
 ///////////////DONT TOUCH/////////////////////////////
 

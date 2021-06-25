@@ -20,3 +20,20 @@ module.exports.isUser = (email) => {
     const params = [email];
     return db.query(q, params);
 };
+
+module.exports.getFlatPreview = () => {
+    return db.query(`
+    SELECT renter, headline, starting, till, image_1, image_2, image_3
+    FROM flats
+    `);
+};
+
+module.exports.getFlatPage = (id) => {
+    const q = `
+    SELECT renter, headline, description, starting, till, image_1, image_2, image_3, image_4, image_5
+    FROM flats
+    WHERE id=$1
+    `;
+    const params = [id];
+    return db.query(q, params);
+};

@@ -25,6 +25,7 @@ export default function AddFlat() {
     const handleChange = (e) => {
         setImages(e.target.files);
     };
+
     const handleSubmit = (e) => {
         console.log("handlesubmit running");
         e.preventDefault();

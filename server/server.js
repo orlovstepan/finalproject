@@ -122,30 +122,12 @@ app.post(
     uploader.array("images", 5),
     s3.upload,
     (req, res) => {
-        // console.log("req files", req.files);
-        // console.log("req.file", req.file);
-
-        for (let i = 0; i < req.files.length; i++) {
-            let urlImage = `https://s3.amazonaws.com/spicedling/${req.files[i].filename}`;
-            db.uploadFlatImage(req.session.userId, req.files[i]);
-        }
-        // let urlImage2 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
-        // let urlImage3 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
-        // let urlImage4 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
-        // let urlImage5 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
-        // db.uploadFlatImage(
-        //     req.session.userId,
-        //     urlImage1,
-        //     urlImage2,
-        //     urlImage3,
-        //     urlImage4,
-        //     urlImage5
-        // )
-        //     .then(({ rows }) => {
-        //         console.log("rows in update-profile-pic", rows);
-        //         res.json(rows);
-        //     })
-        //     .catch((e) => console.log("error in update-profile-pic", e));
+        const filenames = req.files.map((file) => {
+            return `https://s3.amazonaws.com/spicedling/${file.filename}`;
+        });
+        db.uploadFlatImage(req.session.userId, ...filenames)
+            .then(({ rows }) => res.json(rows))
+            .catch((e) => console.log("error in upload-img", e));
     }
 );
 

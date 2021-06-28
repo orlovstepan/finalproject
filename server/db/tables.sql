@@ -19,7 +19,7 @@ CREATE TABLE flats(
     id SERIAL PRIMARY KEY,
     renter INT REFERENCES users(id) NOT NULL,
     headline VARCHAR,
-    description VARCHAR NOT NULL,
+    description VARCHAR,
     starting DATE,
     till DATE,
     image_1 VARCHAR NOT NULL,

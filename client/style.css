@@ -7,3 +7,9 @@ body {
     height: 150px;
     object-fit: cover;
 }
+
+.upperBanner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

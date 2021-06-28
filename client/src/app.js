@@ -1,11 +1,19 @@
 import FlatPreview from "./flatPreview";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import AddFlat from "./addFlat";
+import InviteFriend from "./inviteFriend";
 
 export default function App() {
     return (
         <BrowserRouter>
             <div className="upperBanner">
-                <img id="logo" src="../public/logo.png" alt="logo" />
+                <img
+                    id="logo"
+                    src="/logo.png"
+                    width="50px"
+                    height="50px"
+                    alt="logo"
+                />
                 <div>
                     <Link to="/">Feed</Link>
                 </div>
@@ -20,9 +28,9 @@ export default function App() {
                 </div>
             </div>
             <hr width="90%"></hr>
-            <div className="feed">
-                <FlatPreview />
-            </div>
+            <Route path="/" exact component={FlatPreview} />
+            <Route path="/add-flat" component={AddFlat} />
+            <Route path="/invite" component={InviteFriend} />
         </BrowserRouter>
     );
 }

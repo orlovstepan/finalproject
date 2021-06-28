@@ -23,8 +23,10 @@ module.exports.isUser = (email) => {
 
 module.exports.getFlatPreview = () => {
     return db.query(`
-    SELECT renter, headline, starting, till, image_1, image_2, image_3
+    SELECT flats.id, users.first, renter, headline, description, starting, till, image_1, image_2, image_3
     FROM flats
+    JOIN users
+    ON (users.id = flats.renter)
     `);
 };
 
@@ -35,5 +37,41 @@ module.exports.getFlatPage = (id) => {
     WHERE id=$1
     `;
     const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.uploadFlatImage = (
+    id,
+    imgUrl1,
+    imgUrl2,
+    imgUrl3,
+    imgUrl4,
+    imgUrl5
+) => {
+    const q = `
+    UPDATE flats
+    SET image_1 = $2, image_2 = $3, image_3 = $4, image_4 = $5, image_5 = $6
+    WHERE id=$1
+    `;
+    const params = [id, imgUrl1, imgUrl2, imgUrl3, imgUrl4, imgUrl5];
+    return db.query(q, params);
+};
+
+module.exports.inviteFriend = (email) => {
+    const q = `
+    INSERT INTO invited (email)
+    VALUES ($1)
+    RETURNING *
+    `;
+    const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.isInvited = (email) => {
+    const q = `
+    SELECT email FROM invited 
+    WHERE email=$1
+    `;
+    const params = [email];
     return db.query(q, params);
 };

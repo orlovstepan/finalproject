@@ -5,7 +5,7 @@ import Login from "./login";
 export default function Welcome() {
     return (
         <div id="welcome">
-            <img id="logo" src="../images/logo.png" />
+            <img id="logo" src="../public/logo.png" />
             <h1>HELLO WELCOME</h1>
             <HashRouter>
                 <div>

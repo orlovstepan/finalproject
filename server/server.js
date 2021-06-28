@@ -6,8 +6,29 @@ const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const db = require("./db/db");
 const { hash, compare } = require("../utils/bc");
+const multer = require("multer");
+const s3 = require("../s3");
+const uidSafe = require("uid-safe");
 const COOKIE_SECRET =
     process.env.COOKIE_SECRET || require("../secrets.json").COOKIE_SECRET;
+
+const storage = multer.diskStorage({
+    destination(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename(req, file, callback) {
+        uidSafe(24).then((uid) => {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.use(compression());
 app.use(express.json());
@@ -30,18 +51,27 @@ app.post("/register", (req, res) => {
             success: false,
         });
     } else {
-        hash(password)
-            .then((hashedPw) => {
-                return db.registerUser(first, last, email, hashedPw);
-            })
-            .then(({ rows }) => {
-                // console.log("rows in registerUser", rows);
-                req.session.userId = rows[0].id;
+        db.isInvited(email).then(({ rows }) => {
+            console.log("rows after isInvited", rows);
+            if (!rows.length) {
                 return res.json({
-                    success: true,
+                    invited: false,
                 });
-            })
-            .catch((e) => console.log("error in registration", e));
+            } else {
+                hash(password)
+                    .then((hashedPw) => {
+                        return db.registerUser(first, last, email, hashedPw);
+                    })
+                    .then(({ rows }) => {
+                        // console.log("rows in registerUser", rows);
+                        req.session.userId = rows[0].id;
+                        return res.json({
+                            success: true,
+                        });
+                    })
+                    .catch((e) => console.log("error in registration", e));
+            }
+        });
     }
 });
 
@@ -87,7 +117,53 @@ app.get("/api/flat-preview", (req, res) => {
         .catch((e) => console.log("error on the server in getting flats", e));
 });
 
-app.get("/flats");
+app.post(
+    "/upload-images",
+    uploader.array("images", 5),
+    s3.upload,
+    (req, res) => {
+        // console.log("req files", req.files);
+        // console.log("req.file", req.file);
+
+        for (let i = 0; i < req.files.length; i++) {
+            let urlImage = `https://s3.amazonaws.com/spicedling/${req.files[i].filename}`;
+            db.uploadFlatImage(req.session.userId, req.files[i]);
+        }
+        // let urlImage2 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
+        // let urlImage3 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
+        // let urlImage4 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
+        // let urlImage5 = `https://s3.amazonaws.com/spicedling/${req.files[0].filename}`;
+        // db.uploadFlatImage(
+        //     req.session.userId,
+        //     urlImage1,
+        //     urlImage2,
+        //     urlImage3,
+        //     urlImage4,
+        //     urlImage5
+        // )
+        //     .then(({ rows }) => {
+        //         console.log("rows in update-profile-pic", rows);
+        //         res.json(rows);
+        //     })
+        //     .catch((e) => console.log("error in update-profile-pic", e));
+    }
+);
+
+app.post("/invite", (req, res) => {
+    db.inviteFriend(req.body.email)
+        .then(({ rows }) => {
+            console.log("invitation success server");
+            return res.json({ success: true });
+        })
+        .catch((e) => console.log("error in inviting a friend", e));
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/#/login");
+});
+
+// app.get("/flats");
 
 ///////////////DONT TOUCH/////////////////////////////
 

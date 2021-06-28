@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default function FlatPreview() {
     const [flats, setFlats] = useState([]);
@@ -19,8 +20,10 @@ export default function FlatPreview() {
             <ul>
                 {flats.map((each) => (
                     <li key={each.id}>
-                        {each.renter} rents out {each.headline} <br></br>
-                        <img id="flatPicLi" src={each.image_1} />
+                        <Link to={`/flats/${each.id}`}>
+                            {each.first} rents out {each.headline} <br></br>
+                            <img id="flatPicLi" src={each.image_1} />
+                        </Link>
                     </li>
                 ))}
             </ul>

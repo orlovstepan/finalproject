@@ -1,29 +1,17 @@
-// import Uploader from "./uploader";
-// import axios from "./axios";
-
-// export default function AddFlat() {
-//     return (
-//         <div className="addFlatContainer">
-//             <form id="addFlat">
-//                 <input name="headline" placeholder="headline"></input>
-//                 <input name="description" placeholder="description"></input>
-//                 <input name="starting" placeholder="starting date"></input>
-//                 <input name="till" placeholder="till"></input>
-//                 <button>Submit</button>
-//             </form>
-//             <Uploader />
-//         </div>
-//     );
-// }
-
 import axios from "./axios";
 import { useState } from "react";
 
 export default function AddFlat() {
     const [images, setImages] = useState([]);
 
+    const [info, setInfo] = useState({});
+
     const handleChange = (e) => {
         setImages(e.target.files);
+    };
+
+    const handleChangeInfo = (e) => {
+        setInfo({ ...info, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
@@ -33,6 +21,9 @@ export default function AddFlat() {
         // data.append("images", images);
         for (let i = 0; i < images.length; i++) {
             data.append("images", images[i]);
+        }
+        for (let key in info) {
+            data.append(key, info[key]);
         }
         axios.post("/upload-images", data);
         console.log("data in submit", data);
@@ -49,10 +40,26 @@ export default function AddFlat() {
                 multiple
                 onChange={handleChange}
             ></input>
-            <input name="headline" placeholder="headline"></input>
-            <input name="description" placeholder="description"></input>
-            <input name="starting" placeholder="starting date"></input>
-            <input name="till" placeholder="till"></input>
+            <input
+                onChange={handleChangeInfo}
+                name="headline"
+                placeholder="headline"
+            ></input>
+            <input
+                onChange={handleChangeInfo}
+                name="description"
+                placeholder="description"
+            ></input>
+            <input
+                onChange={handleChangeInfo}
+                name="starting"
+                placeholder="starting date"
+            ></input>
+            <input
+                onChange={handleChangeInfo}
+                name="till"
+                placeholder="till"
+            ></input>
             <button onClick={handleSubmit}>Submit</button>
         </div>
     );

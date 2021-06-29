@@ -2,6 +2,7 @@ import FlatPreview from "./flatPreview";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import AddFlat from "./addFlat";
 import InviteFriend from "./inviteFriend";
+import Flat from "./flat";
 
 export default function App() {
     return (
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/" exact component={FlatPreview} />
             <Route path="/add-flat" component={AddFlat} />
             <Route path="/invite" component={InviteFriend} />
+            <Route path="/flats/:id" component={Flat} />
         </BrowserRouter>
     );
 }

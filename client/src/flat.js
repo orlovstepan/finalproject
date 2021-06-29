@@ -1,22 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "./axios";
 
 export default function Flat() {
+    const [flat, setFlat] = useState({});
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`/api/flats/${id}`)
+            .then(({ data }) => {
+                console.log("data", data);
+                setFlat(data[0]);
+                console.log("flat", flat);
+            })
+            .catch((e) =>
+                console.log("error in getting the flat (flats.js)", e)
+            );
+    }, []);
+
     return (
         <div className="flatContainer">
-            <h1>headline</h1>
+            <h1>{flat.headline}</h1>
             <ul>
-                <li>image 1</li>
-                <li>image 2</li>
-                <li>image 3</li>
-                <li>image 4</li>
+                <img height="200px" width="auto" src={flat.image_1} />
             </ul>
-            <span>
-                description here description heredescription heredescription
-                here description here description here description here
-                description here description here description here description
-                here description here
-            </span>
+            <span>{flat.description}</span>
             <span> from date to date </span>
         </div>
     );

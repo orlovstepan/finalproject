@@ -42,6 +42,8 @@ module.exports.getFlatPage = (id) => {
 
 module.exports.uploadFlatImage = (
     renter,
+    headline,
+    description,
     imgUrl1,
     imgUrl2,
     imgUrl3,
@@ -49,11 +51,20 @@ module.exports.uploadFlatImage = (
     imgUrl5
 ) => {
     const q = `
-    INSERT INTO flats (renter,image_1,image_2,image_3,image_4,image_5)
-    VALUES  ($1, $2, $3, $4, $5, $6)
+    INSERT INTO flats (renter, headline, description, image_1,image_2,image_3,image_4,image_5)
+    VALUES  ($1, $2, $3, $4, $5, $6, $7, $8)
     RETURNING *
     `;
-    const params = [renter, imgUrl1, imgUrl2, imgUrl3, imgUrl4, imgUrl5];
+    const params = [
+        renter,
+        headline,
+        description,
+        imgUrl1,
+        imgUrl2,
+        imgUrl3,
+        imgUrl4,
+        imgUrl5,
+    ];
     return db.query(q, params);
 };
 

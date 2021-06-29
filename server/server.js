@@ -52,7 +52,7 @@ app.post("/register", (req, res) => {
         });
     } else {
         db.isInvited(email).then(({ rows }) => {
-            console.log("rows after isInvited", rows);
+            // console.log("rows after isInvited", rows);
             if (!rows.length) {
                 return res.json({
                     invited: false,
@@ -92,8 +92,8 @@ app.post("/login", (req, res) => {
                 });
             }
             userId = rows[0].id;
-            console.log("password", password);
-            console.log("rows password", rows[0].password);
+            // console.log("password", password);
+            // console.log("rows password", rows[0].password);
             compare(password, rows[0].password)
                 .then((auth) => {
                     if (auth) {
@@ -111,7 +111,7 @@ app.post("/login", (req, res) => {
 app.get("/api/flat-preview", (req, res) => {
     db.getFlatPreview()
         .then(({ rows }) => {
-            console.log("rows in getFlatPreview", rows);
+            // console.log("rows in getFlatPreview", rows);
             return res.json(rows);
         })
         .catch((e) => console.log("error on the server in getting flats", e));
@@ -122,10 +122,16 @@ app.post(
     uploader.array("images", 5),
     s3.upload,
     (req, res) => {
+        const { headline, description } = req.body;
         const filenames = req.files.map((file) => {
             return `https://s3.amazonaws.com/spicedling/${file.filename}`;
         });
-        db.uploadFlatImage(req.session.userId, ...filenames)
+        db.uploadFlatImage(
+            req.session.userId,
+            headline,
+            description,
+            ...filenames
+        )
             .then(({ rows }) => res.json(rows))
             .catch((e) => console.log("error in upload-img", e));
     }
@@ -134,18 +140,23 @@ app.post(
 app.post("/invite", (req, res) => {
     db.inviteFriend(req.body.email)
         .then(({ rows }) => {
-            console.log("invitation success server");
+            // console.log("invitation success server");
             return res.json({ success: true });
         })
         .catch((e) => console.log("error in inviting a friend", e));
+});
+
+app.get("/api/flats/:id", (req, res) => {
+    db.getFlatPage(req.params.id).then(({ rows }) => {
+        console.log("rows in server", rows);
+        res.json(rows);
+    });
 });
 
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/#/login");
 });
-
-// app.get("/flats");
 
 ///////////////DONT TOUCH/////////////////////////////
 

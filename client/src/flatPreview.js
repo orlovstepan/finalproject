@@ -30,9 +30,12 @@ export default function FlatPreview() {
         <div className="flatsPreviewContainer">
             <ul>
                 {flats.map((each) => (
-                    <li key={each.id}>
+                    <li id="flatCard" key={each.id}>
                         <Link to={`/flats/${each.id}`}>
-                            {each.first} rents out {each.headline}
+                            <h5>
+                                {" "}
+                                {each.first} rents out {each.headline}{" "}
+                            </h5>
                             <br></br>
                             <img id="flatPicLi" src={each.image_1} />
                         </Link>

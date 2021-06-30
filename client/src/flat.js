@@ -22,26 +22,30 @@ export default function Flat() {
 
     return (
         <div className="flatContainer">
-            <h1>{flat.headline}</h1>
+            <div id="flatInfo">
+                <h1>{flat.headline}</h1>
+                <div id="flatImages">
+                    {flat.image_1 && (
+                        <img height="200px" width="auto" src={flat.image_1} />
+                    )}
+                    {flat.image_2 && (
+                        <img height="200px" width="auto" src={flat.image_2} />
+                    )}
+                    {flat.image_3 && (
+                        <img height="200px" width="auto" src={flat.image_3} />
+                    )}
+                    {flat.image_4 && (
+                        <img height="200px" width="auto" src={flat.image_4} />
+                    )}
+                    {flat.image_5 && (
+                        <img height="200px" width="auto" src={flat.image_5} />
+                    )}
+                </div>
 
-            {flat.image_1 && (
-                <img height="200px" width="auto" src={flat.image_1} />
-            )}
-            {flat.image_2 && (
-                <img height="200px" width="auto" src={flat.image_2} />
-            )}
-            {flat.image_3 && (
-                <img height="200px" width="auto" src={flat.image_3} />
-            )}
-            {flat.image_4 && (
-                <img height="200px" width="auto" src={flat.image_4} />
-            )}
-            {flat.image_5 && (
-                <img height="200px" width="auto" src={flat.image_5} />
-            )}
+                <span>{flat.description}</span>
 
-            <span>{flat.description}</span>
-            <span> from date to date </span>
+                {/* <span> from date to date </span> */}
+            </div>
         </div>
     );
 }

@@ -8,6 +8,8 @@ export default function Login() {
         password: "",
     });
 
+    const [errorMessage, setErrorMessage] = useState("");
+
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
         // console.log("values", values);
@@ -19,6 +21,7 @@ export default function Login() {
             console.log("data in login", data);
             if (!data.success) {
                 console.log("registration failed");
+                setErrorMessage("Something went wrong 🤷");
             } else {
                 location.reload();
             }
@@ -28,7 +31,7 @@ export default function Login() {
     return (
         <div className="loginContainer">
             <video playsInline autoPlay muted loop>
-                <source src="flat.mp4" type="video/mp4"></source>
+                <source src="flat2.mp4" type="video/mp4"></source>
             </video>
             <div id="loginFormOverlay">
                 <form onSubmit={handleSubmit}>
@@ -48,6 +51,7 @@ export default function Login() {
                         type={"password"}
                     ></input>
                     <button type={"submit"}>Log in</button>
+                    {errorMessage && <p className="error"> {errorMessage} </p>}
                 </form>
             </div>
             <span>

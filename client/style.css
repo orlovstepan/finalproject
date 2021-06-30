@@ -1,18 +1,45 @@
-body {
-    text-decoration: none;
-    background-color: ghostwhite;
+* {
+    margin: 0;
 }
 
-#flatPicLi {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
+body {
+    text-decoration: none;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black;
 }
 
 .upperBanner {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-image: url(background2.jpg);
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    font-size: 20px;
+    font-weight: bold;
+    /* opacity: 2; */
 }
 
 .registrationContainer {
@@ -52,9 +79,11 @@ body {
 #registrationFormOverlay {
     width: 50vw;
     height: 50vh;
-    background-color: #252323;
-    opacity: 1;
+    position: relative;
+    /* opacity: 1; */
     color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+
     /* z-index: -2; */
 }
 .loginContainer {
@@ -97,7 +126,7 @@ body {
     background-color: #252323;
     opacity: 1;
     color: white;
-    z-index: -2;
+    /* z-index: -2; */
 }
 
 video {
@@ -107,13 +136,275 @@ video {
     position: fixed;
     top: 0;
     left: 0;
+    /* z-index: 0; */
     opacity: 0.6;
 }
 
-a:active {
-    text-decoration: cornflowerblue;
+.flatsPreviewContainer {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.3)
+        ),
+        url("background.jpg");
+    background-color: ghostwhite;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-a:visited {
+ul {
+    list-style: none;
+}
+
+#flatPicLi {
+    width: 20vw;
+    height: 20vh;
+    object-fit: cover;
+}
+
+#flatCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+    width: 30vw;
+    height: 35vh;
+    margin-top: 5%;
+    font-size: 200%;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+#flatCard a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.myFlatContainer {
+    height: 100vh;
+    width: 100vw;
+    /* background-image: url("background2.jpg"); */
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0.4),
+            rgba(0, 0, 0, 0.4)
+        ),
+        url("background2.jpg");
+    background-color: ghostwhite;
+    background-size: cover;
+    display: flex;
+    /* opacity: 0.2; */
+    justify-content: center;
+    align-items: center;
+    /* z-index: 0; */
+}
+
+#myFlatInfo {
+    height: 50vh;
+    width: 50vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* z-index: 5; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#myFlatInfo span {
+    max-width: 40vw;
+}
+
+.myFlatContainer button {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.42em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
     color: black;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.myFlatContainer button:hover {
+    color: #000000;
+    background-color: #c80707;
+}
+
+#myFlatImages img {
+    margin-right: 15px;
+}
+
+.flatContainer {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("background3.jpg");
+    background-color: ghostwhite;
+    background-size: cover;
+    display: flex;
+    /* opacity: 0.2; */
+    justify-content: center;
+    align-items: center;
+    /* z-index: 0; */
+}
+
+#flatInfo {
+    height: 50vh;
+    width: 50vw;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* z-index: 5; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* #flatInfo h1 {
+    margin: 2%;
+} */
+
+#flatImages {
+    margin: 5%;
+}
+
+#flatImages img {
+    margin-right: 15px;
+}
+
+#flatInfo span {
+    width: 40vw;
+}
+
+.inviteFriendContainer {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("background4.jpg");
+    background-color: ghostwhite;
+    background-size: cover;
+    display: flex;
+    /* opacity: 0.2; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* z-index: 0; */
+}
+
+#inviteInfo {
+    height: 25vh;
+    width: 35vw;
+    background-color: rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#inviteInfo h3 {
+    width: 30vw;
+}
+
+#inviteInfo form {
+    margin: 2%;
+}
+
+.uploaderContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(
+            rgba(255, 255, 255, 0.4),
+            rgba(0, 0, 0, 0.4)
+        ),
+        url("background2.jpg");
+}
+
+#uploaderFields {
+    width: 40vw;
+    height: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.uploaderContainer input {
+    margin-top: 10px;
+}
+
+#headline {
+    width: 15vw;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+#description {
+    margin-top: 3%;
+    height: 10vh;
+    width: 15vw;
+    resize: vertical;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.06);
+    /* height: 150px; */
+    /* box-sizing: border-box; */
+}
+
+.uploaderContainer label {
+    margin-bottom: -10px;
+}
+
+.uploaderContainer button {
+    margin-top: 1%;
+    background-color: #8faf90;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: all 0.2s;
+}
+
+.uploaderContainer button:hover {
+    color: white;
+    background-color: green;
+}
+
+#imgUploader {
+    margin-left: 3%;
+}
+
+#imgLabel {
+    display: inline-block;
+    margin-top: 3%;
+    padding: 0.3em 1.2em;
+    /* margin: 0 0.3em 0.3em 0; */
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    color: black;
+    background-color: #d6cd82;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+#imgLabel:hover {
+    background-color: #dae1e5;
 }

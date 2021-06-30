@@ -9,6 +9,7 @@ export default function Registration() {
         email: "",
         password: "",
     });
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -21,6 +22,9 @@ export default function Registration() {
         axios.post("/register", values).then(({ data }) => {
             if (!data.success) {
                 console.log("registration failed");
+                setErrorMessage(
+                    "You're not yet privileged to use our platform 😭"
+                );
             } else {
                 location.reload();
             }
@@ -66,6 +70,7 @@ export default function Registration() {
                         type={"password"}
                     ></input>
                     <button type={"submit"}>Submit</button>
+                    {errorMessage && <p className="error"> {errorMessage} </p>}
                 </form>
             </div>
             <span>

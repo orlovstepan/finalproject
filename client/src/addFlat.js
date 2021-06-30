@@ -42,37 +42,49 @@ export default function AddFlat() {
 
     return (
         <div className="uploaderContainer">
-            <input
-                id="imgUploader"
-                name="images"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleChange}
-            ></input>
-            <input
-                onChange={handleChangeInfo}
-                name="headline"
-                placeholder="headline"
-            ></input>
-            <input
-                onChange={handleChangeInfo}
-                name="description"
-                placeholder="description"
-            ></input>
-            <input
-                onChange={handleChangeInfo}
-                name="starting"
-                type="date"
-                placeholder="starting date"
-            ></input>
-            <input
-                onChange={handleChangeInfo}
-                name="till"
-                type="date"
-                placeholder="till"
-            ></input>
-            <button onClick={handleSubmit}>Submit</button>
+            <h1>Share your flat here</h1>
+            <br></br>
+            <div id="uploaderFields">
+                <input
+                    id="headline"
+                    onChange={handleChangeInfo}
+                    name="headline"
+                    placeholder="headline"
+                ></input>
+                <textarea
+                    id="description"
+                    onChange={handleChangeInfo}
+                    name="description"
+                    placeholder="description"
+                ></textarea>
+                <label htmlFor="starting">From</label>
+                <input
+                    onChange={handleChangeInfo}
+                    name="starting"
+                    type="date"
+                    placeholder="starting date"
+                ></input>
+                <label htmlFor="starting">Till</label>
+                <input
+                    onChange={handleChangeInfo}
+                    name="till"
+                    type="date"
+                    placeholder="till"
+                ></input>
+                <label id="imgLabel" htmlFor="imgUploader">
+                    Select Images
+                </label>
+                <input
+                    style={{ visibility: "hidden" }}
+                    id="imgUploader"
+                    name="images"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleChange}
+                ></input>
+                <button onClick={handleSubmit}>Submit</button>
+            </div>
         </div>
     );
 }

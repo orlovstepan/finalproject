@@ -39,7 +39,7 @@ export default function App() {
                 )}
                 {show && (
                     <div>
-                        <Link to="/my-flats">My flats</Link>
+                        <Link to="/my-flats">My flat</Link>
                     </div>
                 )}
                 <div>

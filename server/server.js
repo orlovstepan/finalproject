@@ -108,6 +108,13 @@ app.post("/login", (req, res) => {
     }
 });
 
+app.get("/has-flat", (req, res) => {
+    db.getMyFlats(req.session.userId).then(({ rows }) => {
+        res.json(rows);
+        // console.log("rows in hasflat", rows);
+    });
+});
+
 app.get("/api/flat-preview", (req, res) => {
     db.getFlatPreview()
         .then(({ rows }) => {
@@ -122,7 +129,7 @@ app.post(
     uploader.array("images", 5),
     s3.upload,
     (req, res) => {
-        const { headline, description } = req.body;
+        const { headline, description, starting, till } = req.body;
         const filenames = req.files.map((file) => {
             return `https://s3.amazonaws.com/spicedling/${file.filename}`;
         });
@@ -130,6 +137,8 @@ app.post(
             req.session.userId,
             headline,
             description,
+            starting,
+            till,
             ...filenames
         )
             .then(({ rows }) => res.json(rows))
@@ -151,6 +160,19 @@ app.get("/api/flats/:id", (req, res) => {
         console.log("rows in server", rows);
         res.json(rows);
     });
+});
+
+app.get("/api/my-flats", (req, res) => {
+    db.getMyFlats(req.session.userId).then(({ rows }) => {
+        // console.log("rows in myflats", rows);
+        res.json(rows);
+    });
+});
+
+app.post("/delete-flat", (req, res) => {
+    db.deleteFlat(req.body.id)
+        .then((result) => res.json(result))
+        .catch((e) => console.log(e));
 });
 
 app.get("/logout", (req, res) => {

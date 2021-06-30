@@ -29,39 +29,49 @@ export default function Registration() {
 
     return (
         <div className="registrationContainer">
-            <form onSubmit={handleSubmit}>
-                <input
-                    onChange={handleChange}
-                    value={values.first}
-                    name={"first"}
-                    placeholder={"First Name"}
-                    required
-                ></input>
-                <input
-                    onChange={handleChange}
-                    value={values.last}
-                    name={"last"}
-                    placeholder={"Last Name"}
-                    required
-                ></input>
-                <input
-                    onChange={handleChange}
-                    value={values.email}
-                    name={"email"}
-                    placeholder={"Email"}
-                    required
-                    type={"email"}
-                ></input>
-                <input
-                    onChange={handleChange}
-                    value={values.password}
-                    name={"password"}
-                    placeholder={"Password"}
-                    required
-                    type={"password"}
-                ></input>
-                <button type={"submit"}>Submit</button>
-            </form>
+            <video playsInline autoPlay muted loop>
+                <source src="flat.mp4" type="video/mp4"></source>
+            </video>
+            <div id="registrationFormOverlay">
+                <form onSubmit={handleSubmit}>
+                    <h1>Please register</h1>
+                    <input
+                        onChange={handleChange}
+                        value={values.first}
+                        name={"first"}
+                        placeholder={"First Name"}
+                        required
+                    ></input>
+                    <input
+                        onChange={handleChange}
+                        value={values.last}
+                        name={"last"}
+                        placeholder={"Last Name"}
+                        required
+                    ></input>
+                    <input
+                        onChange={handleChange}
+                        value={values.email}
+                        name={"email"}
+                        placeholder={"Email"}
+                        required
+                        type={"email"}
+                    ></input>
+                    <input
+                        onChange={handleChange}
+                        value={values.password}
+                        name={"password"}
+                        placeholder={"Password"}
+                        required
+                        type={"password"}
+                    ></input>
+                    <button type={"submit"}>Submit</button>
+                </form>
+            </div>
+            <span>
+                If you are already a member of our community, please{" "}
+                <Link to="/login">login </Link>
+            </span>
         </div>
     );
 }

@@ -15,13 +15,25 @@ export default function FlatPreview() {
             .catch((e) => console.log("error in usEffect flatpreview", e));
     }, []);
 
+    const formatDate = (date) => {
+        // if (!date) {
+        //     return;
+        // }
+        console.log("date before", date);
+        date = new Date(date);
+        const prettyDate = new Intl.DateTimeFormat("en-GB").format(date);
+        console.log(prettyDate);
+        return prettyDate;
+    };
+
     return (
         <div className="flatsPreviewContainer">
             <ul>
                 {flats.map((each) => (
                     <li key={each.id}>
                         <Link to={`/flats/${each.id}`}>
-                            {each.first} rents out {each.headline} <br></br>
+                            {each.first} rents out {each.headline}
+                            <br></br>
                             <img id="flatPicLi" src={each.image_1} />
                         </Link>
                     </li>

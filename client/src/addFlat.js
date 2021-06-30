@@ -1,5 +1,5 @@
 import axios from "./axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AddFlat() {
     const [images, setImages] = useState([]);
@@ -15,7 +15,6 @@ export default function AddFlat() {
     };
 
     const handleSubmit = (e) => {
-        console.log("handlesubmit running");
         e.preventDefault();
         const data = new FormData();
         // data.append("images", images);
@@ -25,10 +24,21 @@ export default function AddFlat() {
         for (let key in info) {
             data.append(key, info[key]);
         }
-        axios.post("/upload-images", data);
+        axios.post("/upload-images", data).then(() => {
+            window.location.href = "/my-flats";
+        });
         console.log("data in submit", data);
         console.log("images after submit", images);
     };
+
+    useEffect(() => {
+        axios.get("/has-flat").then(({ data }) => {
+            console.log("data hasflats", data);
+            if (data.length) {
+                window.location.href = "/my-flats";
+            }
+        });
+    }, []);
 
     return (
         <div className="uploaderContainer">
@@ -53,11 +63,13 @@ export default function AddFlat() {
             <input
                 onChange={handleChangeInfo}
                 name="starting"
+                type="date"
                 placeholder="starting date"
             ></input>
             <input
                 onChange={handleChangeInfo}
                 name="till"
+                type="date"
                 placeholder="till"
             ></input>
             <button onClick={handleSubmit}>Submit</button>

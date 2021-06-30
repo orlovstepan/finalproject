@@ -1,4 +1,5 @@
 body {
+    text-decoration: none;
     background-color: ghostwhite;
 }
 
@@ -12,4 +13,107 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.registrationContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 5;
+}
+
+.registrationContainer form {
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* z-index: 5; */
+}
+
+.registrationContainer input {
+    margin-top: 5px;
+    z-index: 5;
+}
+
+.registrationContainer button {
+    margin-top: 8px;
+}
+
+.registrationContainer span {
+    z-index: 5;
+    text-decoration: none;
+}
+
+#registrationFormOverlay {
+    width: 50vw;
+    height: 50vh;
+    background-color: #252323;
+    opacity: 1;
+    color: white;
+    /* z-index: -2; */
+}
+.loginContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 5;
+}
+
+.loginContainer form {
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* z-index: 5; */
+}
+
+.loginContainer input {
+    margin-top: 10px;
+    z-index: 5;
+}
+
+.loginContainer button {
+    margin-top: 13px;
+}
+
+.loginContainer span {
+    z-index: 5;
+    text-decoration: none;
+}
+
+#loginFormOverlay {
+    width: 50vw;
+    height: 50vh;
+    background-color: #252323;
+    opacity: 1;
+    color: white;
+    z-index: -2;
+}
+
+video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+
+a:active {
+    text-decoration: cornflowerblue;
+}
+
+a:visited {
+    color: black;
 }

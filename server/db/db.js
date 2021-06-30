@@ -44,6 +44,8 @@ module.exports.uploadFlatImage = (
     renter,
     headline,
     description,
+    starting,
+    till,
     imgUrl1,
     imgUrl2,
     imgUrl3,
@@ -51,14 +53,17 @@ module.exports.uploadFlatImage = (
     imgUrl5
 ) => {
     const q = `
-    INSERT INTO flats (renter, headline, description, image_1,image_2,image_3,image_4,image_5)
-    VALUES  ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO flats (renter, headline, description, starting,
+    till, image_1,image_2,image_3,image_4,image_5)
+    VALUES  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     RETURNING *
     `;
     const params = [
         renter,
         headline,
         description,
+        starting,
+        till,
         imgUrl1,
         imgUrl2,
         imgUrl3,
@@ -84,5 +89,23 @@ module.exports.isInvited = (email) => {
     WHERE email=$1
     `;
     const params = [email];
+    return db.query(q, params);
+};
+
+module.exports.getMyFlats = (id) => {
+    const q = `
+    SELECT * FROM flats 
+    WHERE renter=$1
+    `;
+    const params = [id];
+    return db.query(q, params);
+};
+
+module.exports.deleteFlat = (id) => {
+    const q = `
+    DELETE FROM flats
+    WHERE id=$1
+    `;
+    const params = [id];
     return db.query(q, params);
 };
